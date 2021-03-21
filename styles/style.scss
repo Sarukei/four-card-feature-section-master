@@ -1,22 +1,49 @@
-$darkBlue:  hsl(234, 12%, 34%);
+@import "./functions";
+
+// Colors
+$dark-text: hsl(234, 12%, 34%);
 $blueGrey: hsl(229, 6%, 66%);
-$bgGrey:   hsl(0, 0%, 98%);
-$fontSize: 15px;
+$bgGrey: hsl(0, 0%, 98%);
 $team-builder-color: hsl(0, 78%, 62%);
 $supervisor-color: hsl(180, 62%, 55%);
 $karma-color: hsl(34, 97%, 64%);
 $calculator-color: hsl(212, 86%, 64%);
 
-*, *::before, *::after {
-  margin: 0; padding: 0;
-  box-sizing: inherit;
-}
+// Sizes
+// $base-size: 15px;
+$container-margin-lr: rem(32px);
+$container-margin-tb: rem(93px);
+$icon-size: 4rem;
+$desktop-layout-bp: rem(735px); //rem(720px);
 
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  // transition: 0.25s cubic-bezier(0.5, 0, 0.2, 1);
+}
+html {
+  text-rendering: optimizeLegibility;
+
+  @media (max-width: rem(330px)) {
+    font-size: rem(12px);
+  }
+}
 body {
   background: $bgGrey;
   font-family: Poppins;
   box-sizing: border-box;
-  font-size: $fontSize;
+  font-size: 0.9375rem; //15px
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: $desktop-layout-bp) {
+    height: 100vh;
+  }
 }
 
 img {
@@ -29,19 +56,35 @@ Section header/Title
 */
 
 .section {
-  max-width: 100vw;
+  width: 85%;
+  max-width: rem(400px);
+  margin: $container-margin-tb auto;
   // background: red;
-  margin: 0 auto;
-  margin-top: (80px/$fontSize*1rem);
-  padding: 0 2em;
+
   display: flex;
   flex-direction: column;
 
+  @media screen and (min-width: $desktop-layout-bp) {
+    max-width: rem(1100px);
+  }
+
+  &__header {
+    max-width: 29.375rem;
+    margin: 0 auto;
+  }
+
   &__title {
-    color: $darkBlue;
+    color: $dark-text;
     font-weight: 200;
-    font-size: (23px/$fontSize*1rem);
+    font-size: rem(23px);
     text-align: center;
+
+    @media (min-width: rem(450px)) {
+      font-size: rem(26px);
+    }
+    @media (min-width: $desktop-layout-bp) {
+      font-size: rem(36px);
+    }
 
     &--bold {
       font-weight: 600;
@@ -59,61 +102,99 @@ Section header/Title
 .features {
   list-style-type: none;
   margin: 0;
-  margin-top: (70px/$fontSize*1rem);
+  margin-top: (70px / $base-size * 1rem);
   padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
-  
+  align-items: center;
+
+  @media screen and (min-width: $desktop-layout-bp) {
+    // background: red;
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+    column-gap: rem(20px);
+
+    row-gap: rem(20px);
+    // align-items: center;
+  }
 }
 
 .feature-card {
   background: white;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   border-top: 4px solid rgb(98, 216, 224);
   box-shadow: 0px 12px 14px 0px rgba(5, 67, 138, 0.178);
   position: relative;
-  flex-basis: (150px / $fontSize * 1rem);
-  padding: (20px / $fontSize * 1em) (30px / $fontSize * 1em);
+  width: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1 0 15rem;
+  padding: 2em;
 
   & + & {
-    // background: red;
-    margin-top: (20px / $fontSize * 1em);
+    margin-top: rem(20px);
+
+    @media (min-width: $desktop-layout-bp) {
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: $desktop-layout-bp) {
+    min-height: rem(250px);
   }
 
   &__title {
-    color: $darkBlue;
+    color: $dark-text;
     font-size: 1.25rem;
   }
 
   &__desc {
     font-weight: 200;
-    font-size: (12px/$fontSize*1rem);
+    font-size: rem(12px);
     margin-top: 1em;
     line-height: 2em;
-    color: $darkBlue;
+    color: $dark-text;
   }
 
   &__icon {
     align-self: flex-end;
+    justify-self: flex-end;
     margin-top: 2em;
-    max-width: (54px / $fontSize * 1rem);
+    max-width: $icon-size;
   }
 
   &--supervisor {
     border-color: $supervisor-color;
+    grid-area: 1/1/3/2;
   }
   &--team-builder {
     border-color: $team-builder-color;
+    grid-area: 1/2/2/3;
+    align-self: end;
   }
   &--karma {
     border-color: $karma-color;
+
+    align-self: start;
+
+    grid-area: 2/2/3/3;
   }
   &--calculator {
     border-color: $calculator-color;
+    grid-area: 1/3/3/-1;
   }
-  
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }
